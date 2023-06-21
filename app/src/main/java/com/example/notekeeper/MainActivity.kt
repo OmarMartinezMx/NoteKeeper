@@ -44,6 +44,11 @@ class MainActivity : AppCompatActivity() {
 
         if(notePosition != POSITION_NOT_SET)
             displayNote()
+        else{
+            DataManager.notes.add(NoteInfo())
+            notePosition = DataManager.notes.lastIndex
+        }
+
     }
 
     private fun displayNote() {
@@ -89,5 +94,19 @@ class MainActivity : AppCompatActivity() {
             menuItem?.isEnabled = false
         }
         return super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        saveNote()
+    }
+
+    private fun saveNote() {
+        val note = DataManager.notes[notePosition]
+
+        note.title = noteTitleTxt.text.toString()
+        note.text = noteTxt.text.toString()
+        note.course = courseSpinner.selectedItem as CourseInfo
     }
 }

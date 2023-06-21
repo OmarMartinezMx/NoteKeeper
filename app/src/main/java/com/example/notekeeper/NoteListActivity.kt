@@ -2,6 +2,7 @@ package com.example.notekeeper
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Note
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
@@ -39,5 +40,11 @@ class NoteListActivity : AppCompatActivity() {
             startActivity(activityIntent)
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        (listNotes.adapter as ArrayAdapter<*>).notifyDataSetChanged()
     }
 }
